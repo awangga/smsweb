@@ -85,7 +85,8 @@ class SmsWeb(object):
 	    for num in rcptarr:
 	    	if num:
 		    	print '*Sending SMS to: '+num+' \n'
-		    	self.rcpt(num)
+		    	number = validateNumber(num)
+		    	self.rcpt(number)
 		    	self.send()
     
     def send(self):
@@ -99,6 +100,10 @@ class SmsWeb(object):
 	        self.insertSentitem(self.recipient,self.content,data)
         return data
 	         
+    def validateNumber(self,num):
+	    num = num.replace(" ", "")
+	    return num
+    
     def close(self):
         self.ser.close()
 
