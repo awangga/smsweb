@@ -40,10 +40,20 @@ class SmsWeb(object):
 	    doc = {"rcpt":rcpt,"msg":msg,"timestamp":str(datetime.now()),"idProcess":self.idprocess,"stat":stat}
 	    return self.db.sentitems.insert_one(doc).inserted_id
     
+    def insertErrornum(self):
+	    self.db.errornum
+	    doc = {"rcpt":self.recipient,"msg":self.content,"timestamp":datetime.now()}
+	    idProcess = self.db.errornum.insert_one(doc).inserted_id
+	    return doc
+    
     def insertInbox(self,data):
 	    self.db.inbox
 	    return self.db.inbox.insert_one(data).inserted_id
 	    
+    def getErrors(self):
+	    self.db.errornum
+	    return self.db.errornum.find()
+    
     def getSentitem(self,id):
 	    self.db.sentitems
 	    return self.db.sentitems.find_one({"idProcess":id})
@@ -87,7 +97,10 @@ class SmsWeb(object):
 		    	print '*Sending SMS to: '+num+' \n'
 		    	number = self.validateNumber(num)
 		    	self.rcpt(number)
-		    	self.send()
+		    	try:
+		    		self.send()
+		    	except ValueError:
+		    		self.insertErrornum()
     
     def send(self):
         self.pdu = SmsSubmit(self.recipient, self.content)
