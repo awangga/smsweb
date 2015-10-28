@@ -30,7 +30,8 @@ Asynchronous SMS Gateway Web Service
 	# grep 'dialout' /etc/group
 	```
  2. Download and extract smsweb in webserver folder(/var/www/html) with CGI enable
- 3. edit config.py with your own configuration hardware and then execute :
+ 3. edit config.py with your own configuration hardware and 
+ 4. Change owner as apache and mode 755 of smsweb by execute :
  
  ```sh
  # chown -R 755 /var/www/html
