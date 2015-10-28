@@ -3,7 +3,7 @@ Asynchronous SMS Gateway Web Service
 
 ## Pre Requirements
  1. Centos 6 or later
- 2. mongoDB
+ 2. [Install MongoDB]
  3. wavecom modem
  4. Webserver(Apache, Nginx, etc...) with CGI enable or wsgi
  For apache webserver edit /etc/httpd/conf/httpd.conf
@@ -68,3 +68,5 @@ Asynchronous SMS Gateway Web Service
  3. http://www.cyberciti.biz/faq/linux-list-all-members-of-a-group/
  4. http://docs.gunicorn.org/en/19.3/design.html
  5. http://docs.gunicorn.org/en/19.3/faq.html
+ 
+[Install MongoDB]:http://andres.jaimes.net/870/setup-mongo-on-centos-6/
