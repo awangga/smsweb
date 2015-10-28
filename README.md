@@ -1,9 +1,11 @@
 # smsweb
 Asynchronous SMS Gateway Web Service
+
 ## Requirements
  1. Centos 6
  2. mongoDB
  3. wavecom modem
+
 ## Instalation
  1. create user smsweb and to to group dialout
     ```sh
