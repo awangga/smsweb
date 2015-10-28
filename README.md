@@ -34,16 +34,25 @@ Asynchronous SMS Gateway Web Service
  
 ## API Access
  1. sending sms
+ 
+ ```sh
  http://localhost/s.py 
  with POST method, parameter :
  rcpt = number,number ex. 081312000300,08997788921,0879989892383
  msg = this is a message
+ ```
  2. Outbox sms
+ ```sh
  http://localhost/outbox.py
+ ```
  3. Sentitems sms
+ ```sh
  http://localhost/sentitems.py
+ ```
  4. Errornumber log
+ ```sh
  http://localhost/errors.py
+ ```
  
 
 
