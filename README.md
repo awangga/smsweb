@@ -1,21 +1,51 @@
 # smsweb
 Asynchronous SMS Gateway Web Service
 
-## Requirements
- 1. Centos 6
+## Pre Requirements
+ 1. Centos 6 or later
  2. mongoDB
  3. wavecom modem
+ 4. Webserver(Apache, Nginx, etc...) with CGI enable or wsgi
+ For apache webserver edit /etc/httpd/conf/httpd.conf 
+ ```sh
+ <Directory "/var/www/html">
+ 	Options Indexes FollowSymLinks ExecCGI
+    AddHandler cgi-script py
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+ </Directory>
+ ```
 
 ## Instalation
- 1. create user smsweb and to to group dialout
+ 1. add user apache and to to group dialout
+    
     ```sh
 	# useradd smsweb
 	# passwd smsweb
 	# usermod -G dialout smsweb
 	# grep 'dialout' /etc/group
 	```
- 2. Download and extract smsweb in home folder of smsweb
+ 2. Download and extract smsweb in webserver folder(/var/www/html) with CGI enable
  3. edit config.py
+ 4. chown -R 755 /var/www/html
+ 5. chown -R apache:apache /var/www/html/
+ 6. access your IP with browser
+ 
+## API Access
+ 1. sending sms
+ http://localhost/s.py 
+ with POST method, parameter :
+ rcpt = number,number ex. 081312000300,08997788921,0879989892383
+ msg = this is a message
+ 2. Outbox sms
+ http://localhost/outbox.py
+ 3. Sentitems sms
+ http://localhost/sentitems.py
+ 4. Errornumber log
+ http://localhost/errors.py
+ 
+
 
 
 ## Reference
