@@ -6,7 +6,8 @@ Asynchronous SMS Gateway Web Service
  2. mongoDB
  3. wavecom modem
  4. Webserver(Apache, Nginx, etc...) with CGI enable or wsgi
- For apache webserver edit /etc/httpd/conf/httpd.conf 
+ For apache webserver edit /etc/httpd/conf/httpd.conf
+  
  ```sh
  <Directory "/var/www/html">
  	Options Indexes FollowSymLinks ExecCGI
@@ -21,9 +22,7 @@ Asynchronous SMS Gateway Web Service
  1. add user apache and to to group dialout
     
     ```sh
-	# useradd smsweb
-	# passwd smsweb
-	# usermod -G dialout smsweb
+	# usermod -G dialout apache
 	# grep 'dialout' /etc/group
 	```
  2. Download and extract smsweb in webserver folder(/var/www/html) with CGI enable
@@ -31,7 +30,7 @@ Asynchronous SMS Gateway Web Service
  
  ```sh
  # chown -R 755 /var/www/html
- #chown -R apache:apache /var/www/html/
+ # chown -R apache:apache /var/www/html/
  ```
  6. access your IP with browser
  
