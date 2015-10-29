@@ -1,5 +1,14 @@
 # smsweb
-Asynchronous SMS Gateway Web Service
+Asynchronous SMS Gateway Web Service.
+
+Made it for your notification and account verification Apps
+
+## Built in with smsweb
+ 1. serial python lib
+ 2. pymongo python lib
+ 3. messaging python lib
+ 4. bson python lib
+ 5. gunicorn python lib
 
 ## Pre Requirements
  1. Centos 6 or later
