@@ -79,7 +79,8 @@ class SmsWeb(object):
 	    return self.db.outbox.delete_many({"_id":id})
 	    
     def dropOutbox(self):
-	    self.db.drop_collection("outbox")
+    	self.db.outbox
+    	self.db.drop_collection("outbox")
     
     def rcpt(self, number):
         self.recipient = number

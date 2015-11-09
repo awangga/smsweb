@@ -13,7 +13,7 @@ Made it for your notification and account verification Apps
 ## Pre Requirements
  1. Centos 6 or later
  2. [Install MongoDB]
- 3. wavecom modem
+ 3. Wavecom modem
  4. Install Apache Webserver with CGI enable or wsgi
  
  ```sh
