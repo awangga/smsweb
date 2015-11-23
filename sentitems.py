@@ -11,6 +11,8 @@ cgitb.enable()
 import cgi
 import smsweb
 import subprocess
+import json 
+from bson import json_util
 
 #form = cgi.FieldStorage()
 
@@ -22,4 +24,4 @@ if not id:
 	print sw.getSentitem(id)
 else:
 	for a in sw.getSentitems():
-		print a
+		print json.dumps(a, default=json_util.default)
