@@ -143,7 +143,7 @@ class SmsWeb(object):
         data = self.SendCommand(command,16)
         return data
         
-    def readMsg(self):
+    def listInbox(self):
         self.ser.flushInput()
         self.ser.flushOutput()
         command = 'AT+CMGL=1\r\n'
@@ -180,6 +180,10 @@ class SmsWeb(object):
         #data += self.ser.readline()
         #return data
 
+    def decodePDU(self, data):
+	    sms = SmsDeliver(data)
+	    return sms.data
+    
     def deleteMsgs(self, idx):
         #self.ser.flushInput()
         #self.ser.flushOutput()
@@ -187,7 +191,7 @@ class SmsWeb(object):
 	        command = 'AT+CMGD=%s\r\n' % id
 	        self.SendCommand(command,18)
         
-    def getMsg(self, idx):
+    def getPDU(self, idx):
         self.ser.flushInput()
         self.ser.flushOutput()
         command = 'AT+CMGR=%s\r\n' % idx
@@ -200,7 +204,8 @@ class SmsWeb(object):
 	        data += self.ser.readline()
 	        data += self.ser.readline()
 	        data += self.ser.readline()
-        return data        
+        pdu = data.split('\r\n\r\n')[1].split('\r\n')[1]
+        return pdu        
     
     def isRunning(self,pid):
     	path = "/proc/"+str(pid)
