@@ -50,6 +50,16 @@ class SmsWeb(object):
 	    self.db.inbox
 	    return self.db.inbox.insert_one(data).inserted_id
 	    
+    def insertCommands(self,rcpt,msg,rcvdate):
+	    self.db.commands
+	    data = {"rcpt":rcpt,"msg":msg,"timestamp":rcvdate}
+	    return self.db.commands.insert_one(data).inserted_id
+	    
+    def insertComments(self,rcpt,msg,rcvdate):
+	    self.db.comments
+	    data = {"rcpt":rcpt,"msg":msg,"timestamp":rcvdate}
+	    return self.db.comments.insert_one(data).inserted_id
+	    
     def getErrors(self):
 	    self.db.errornum
 	    return self.db.errornum.find()
@@ -78,9 +88,21 @@ class SmsWeb(object):
 	    self.db.inbox
 	    return self.db.inbox.find()
 	    
+    def getCommands(self):
+	    self.db.commands
+	    return self.db.commands.find()
+	    
+    def getComments(self):
+	    self.db.comments
+	    return self.db.comments.find()
+	    
     def removeOutbox(self,id):
 	    self.db.outbox
 	    return self.db.outbox.delete_many({"_id":id})
+	    
+    def removeInbox(self,id):
+	    self.db.inbox
+	    return self.db.inbox.delete_many({"_id":id})
 	    
     def dropOutbox(self):
     	self.db.outbox

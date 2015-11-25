@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """
-inbox.py -  Program to :
-1. read message inbox list index, 
-2. read it and save to db and delete message
+insert.py -  Program to :
+1. insert to outbox collection, 
+2. check if main is running? if not run then run
 """
 print "Content-Type: text-html"
 print
@@ -14,7 +14,7 @@ import subprocess
 import json 
 from bson import json_util
 
-form = cgi.FieldStorage()
+#form = cgi.FieldStorage()
 
 #rcpt = form["rcpt"].value
 #msg = form["msg"].value
@@ -22,11 +22,6 @@ form = cgi.FieldStorage()
 sw = smsweb.SmsWeb()
 #sw.openser()
 sw.opendb()
-
-
-if not id: 
-	print sw.getInbox(id)
-else:
-	for a in sw.getInboxs():
-		print json.dumps(a, default=json_util.default)
-		#print a
+for a in sw.getCommands():
+	print json.dumps(a, default=json_util.default)
+	#print a

@@ -16,9 +16,9 @@ dt=sw.getInbox()
 while dt:
 	text = dt["text"].split('#')
 	if len(text) > 1 :
-		sw.insertCommands(dt["number"],dt["msg"],dt["date"])
+		sw.insertCommands(dt["number"],dt["text"],dt["date"])
 	else:
-		sw.insertComments(dt["number"],dt["msg"],dt["date"])
+		sw.insertComments(dt["number"],dt["text"],dt["date"])
 	sw.removeInbox(dt["_id"])
 	dt=sw.getInbox()
 print "Done..."
