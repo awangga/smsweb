@@ -52,12 +52,12 @@ class SmsWeb(object):
 	    
     def insertCommands(self,rcpt,msg,rcvdate):
 	    self.db.commands
-	    data = {"rcpt":rcpt,"msg":msg,"timestamp":rcvdate}
+	    data = {"from":rcpt,"msg":msg,"timestamp":rcvdate}
 	    return self.db.commands.insert_one(data).inserted_id
 	    
     def insertComments(self,rcpt,msg,rcvdate):
 	    self.db.comments
-	    data = {"rcpt":rcpt,"msg":msg,"timestamp":rcvdate}
+	    data = {"from":rcpt,"msg":msg,"timestamp":rcvdate}
 	    return self.db.comments.insert_one(data).inserted_id
 	    
     def getErrors(self):
