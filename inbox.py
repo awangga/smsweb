@@ -20,14 +20,9 @@ form = cgi.FieldStorage()
 #msg = form["msg"].value
 
 sw = smsweb.SmsWeb()
-sw.openser()
+#sw.openser()
 sw.opendb()
-lmsg=sw.listInbox()
-for msgidx in lmsg:
-	pdu=sw.getPDU(msgidx)
-	data =sw.decodePDU(pdu)
-	sw.insertInbox(data)
-	sw.deleteMsg(msgidx)
+
 
 if not id: 
 	print sw.getInbox(id)

@@ -147,6 +147,23 @@ class SmsWeb(object):
         data = self.SendCommand(command,16)
         return data
         
+    def fetchInbox(self):
+        self.ser.flushInput()
+        self.ser.flushOutput()
+        command = 'AT+CMGL=4\r\n'
+        self.ser.write(command)
+        cmd = self.ser.readline()#'AT+CMGL=4\r\n'
+        cmd += self.ser.readline()#'\r\n'
+        a = []
+        cmglstat = self.ser.readline()#'+CMGL: 1,0,,24\r\n'
+        while "+CMGL:" in cmglstat:
+        	idx = cmglstat.rstrip().split(',')[0].split(' ')[1]
+        	data = self.ser.readline()#'0791269846100129040D91269816707009F10000511152511252820433972C06\r\n'
+        	a.append(int(idx))
+        	cmglstat = self.ser.readline()#if ada lagi '+CMGL: 10,2,,32\r\n' if abis '\r\n'
+        #ok = self.ser.readline()#if abis 'OK\r\n'
+        return a
+        
     def listInbox(self):
         self.ser.flushInput()
         self.ser.flushOutput()
@@ -201,15 +218,24 @@ class SmsWeb(object):
         command = 'AT+CMGR=%s\r\n' % idx
         self.ser.write(command)
         data = self.ser.readline()
-        data += self.ser.readline()
-        data3 = self.ser.readline()
-        data = data+data3
-        if "CMGR" in data3:
-	        data += self.ser.readline()
-	        data += self.ser.readline()
-	        data += self.ser.readline()
-        pdu = data.split('\r\n\r\n')[1].split('\r\n')[1]
+        while not "+CMGR: " in data:
+        	data = self.ser.readline()
+        data = self.ser.readline()
+        pdu = data.rstrip()
         return pdu        
+    
+    def moveInboxtodb(self):
+	    lmsg=self.fetchInbox()
+	    if lmsg:
+	    	for msgidx in lmsg:
+	    		pdu=self.getPDU(msgidx)
+	    		data =self.decodePDU(pdu)
+	    		print pdu
+	    		self.insertInbox(data)
+	    		print "insert success"
+	    		self.deleteMsg(msgidx)
+	    		print "msg deleted"
+	    return lmsg
     
     def isRunning(self,pid):
     	path = "/proc/"+str(pid)
