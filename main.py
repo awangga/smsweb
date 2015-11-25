@@ -19,4 +19,16 @@ while dt:
 	sw.removeOutbox(dt["_id"])
 	dt=sw.getOutbox()
 
-print "Done..."
+print "Done...sending"
+
+sw.moveInboxtodb()
+dt=sw.getInbox()
+while dt:
+	text = dt["text"].split('#')
+	if (len(text) > 1) and (len(text[0]) < 20):
+		sw.insertCommands(dt["number"],dt["text"],dt["date"])
+	else:
+		sw.insertComments(dt["number"],dt["text"],dt["date"])
+	sw.removeInbox(dt["_id"])
+	dt=sw.getInbox()
+print "Done...parsing"

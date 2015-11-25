@@ -24,5 +24,5 @@ sw = smsweb.SmsWeb()
 sw.opendb()
 for a in sw.getCommands():
 	print json.dumps(a, default=json_util.default)
-	#sw.removeCommands(a["_id"])
+	sw.removeCommands(a["_id"])
 	#print a
