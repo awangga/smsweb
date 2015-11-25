@@ -104,6 +104,14 @@ class SmsWeb(object):
 	    self.db.inbox
 	    return self.db.inbox.delete_many({"_id":id})
 	    
+    def removeCommands(self,id):
+	    self.db.commands
+	    return self.db.commands.delete_many({"_id":id})
+	    
+    def removeComments(self,id):
+	    self.db.comments
+	    return self.db.comments.delete_many({"_id":id})
+	    
     def dropOutbox(self):
     	self.db.outbox
     	self.db.drop_collection("outbox")

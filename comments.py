@@ -24,4 +24,5 @@ sw = smsweb.SmsWeb()
 sw.opendb()
 for a in sw.getComments():
 	print json.dumps(a, default=json_util.default)
+	#sw.removeComments(a["_id"])
 	#print a
