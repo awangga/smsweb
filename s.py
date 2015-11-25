@@ -12,15 +12,17 @@ import cgi
 import smsweb
 import subprocess
 
-form = cgi.FieldStorage()
-
-rcpt = form["rcpt"].value
-msg = form["msg"].value
 
 sw = smsweb.SmsWeb()
 sw.opendb()
-print sw.insertOutbox(rcpt,msg)
 
+try:
+	form = cgi.FieldStorage()
+	rcpt = form["rcpt"].value
+	msg = form["msg"].value
+	print sw.insertOutbox(rcpt,msg)
+except:
+	pass
 #run main
 #os.system("python main.py")
 pidfile = open("main.pid")
