@@ -255,16 +255,16 @@ class SmsWeb(object):
     
     def moveInboxtodb(self):
 	    lmsg=self.fetchInbox()
+	    print lmsg
 	    if lmsg:
 	    	for msgidx in lmsg:
 	    		pdu=self.getPDU(msgidx)
 	    		data =self.decodePDU(pdu)
-	    		#print pdu
+	    		print pdu
 	    		self.insertInbox(data)
-	    		#print "insert success"
+	    		print "insert success"
 	    		self.deleteMsg(msgidx)
-	    		#print "msg deleted"
-	    		#print a
+	    		print "msg deleted"
 	    return lmsg
     
     def isRunning(self,pid):

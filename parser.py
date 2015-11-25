@@ -15,7 +15,7 @@ sw.moveInboxtodb()
 dt=sw.getInbox()
 while dt:
 	text = dt["text"].split('#')
-	if len(text) > 1 :
+	if (len(text) > 1) and (len(text[0]) < 20):
 		sw.insertCommands(dt["number"],dt["text"],dt["date"])
 	else:
 		sw.insertComments(dt["number"],dt["text"],dt["date"])
