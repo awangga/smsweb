@@ -194,12 +194,11 @@ class SmsWeb(object):
         self.ser.flushInput()
         self.ser.flushOutput()
         command = 'AT+CMGD=%s\r\n' % idx
-        return self.SendCommand(command,18)
-        #self.ser.write(command)
-        #data = self.ser.readline()
-        #data += self.ser.readline()
-        #data += self.ser.readline()
-        #return data
+        self.ser.write(command)
+        data = self.ser.readline()
+        data += self.ser.readline()
+        data += self.ser.readline()
+        return data
 
     def decodePDU(self, data):
 	    sms = SmsDeliver(data)
@@ -233,8 +232,9 @@ class SmsWeb(object):
 	    		print pdu
 	    		self.insertInbox(data)
 	    		print "insert success"
-	    		self.deleteMsg(msgidx)
+	    		a=self.deleteMsg(msgidx)
 	    		print "msg deleted"
+	    		print a
 	    return lmsg
     
     def isRunning(self,pid):
