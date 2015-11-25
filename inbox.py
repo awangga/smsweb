@@ -22,8 +22,8 @@ sw.openser()
 sw.opendb()
 lmsg=sw.listInbox()
 for msgidx in lmsg:
-	pdu=getPDU(msgidx)
-	data =decodePDU(pdu)
+	pdu=sw.getPDU(msgidx)
+	data =sw.decodePDU(pdu)
 	sw.insertInbox(data)
 	sw.deleteMsg(msgidx)
 
