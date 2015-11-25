@@ -229,12 +229,12 @@ class SmsWeb(object):
 	    	for msgidx in lmsg:
 	    		pdu=self.getPDU(msgidx)
 	    		data =self.decodePDU(pdu)
-	    		print pdu
+	    		#print pdu
 	    		self.insertInbox(data)
-	    		print "insert success"
-	    		a=self.deleteMsg(msgidx)
-	    		print "msg deleted"
-	    		print a
+	    		#print "insert success"
+	    		self.deleteMsg(msgidx)
+	    		#print "msg deleted"
+	    		#print a
 	    return lmsg
     
     def isRunning(self,pid):
