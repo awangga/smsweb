@@ -74,6 +74,10 @@ class SmsWeb(object):
 	    self.db.inbox
 	    return self.db.inbox.find_one()
     
+    def getInboxs(self):
+	    self.db.inbox
+	    return self.db.inbox.find()
+	    
     def removeOutbox(self,id):
 	    self.db.outbox
 	    return self.db.outbox.delete_many({"_id":id})
