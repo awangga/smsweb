@@ -26,4 +26,9 @@ for msgidx in lmsg:
 	data =decodePDU(pdu)
 	sw.insertInbox(data)
 	sw.deleteMsg(msgidx)
-sw.close
+
+if not id: 
+	print sw.getInbox(id)
+else:
+	for a in sw.getInboxs():
+		print json.dumps(a, default=json_util.default)
