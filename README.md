@@ -46,6 +46,10 @@ Made it for your notification and account verification Apps
  # chown -R 755 /var/www/html
  # chown -R apache:apache /var/www/html/
  ```
+ 5. Change access mode for main.pid to 777
+ ```sh
+ # chown 777 main.pid
+ ```
  6. access your IP with browser
  
 ## API Access
