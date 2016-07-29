@@ -34,6 +34,18 @@ class SmsWeb(object):
 	    idProcess = self.db.outbox.insert_one(doc).inserted_id
 	    ret = {"rcpt":rcpt,"msg":msg,"idProcess":idProcess}
 	    return ret
+	
+    def insertOutboxPerRcpt(self,rcpt,msg):
+	    self.db.outbox
+	    rcptarr = re.split(',|;',rcpt)
+	    ret = 0
+	    for num in rcptarr:
+			if num:
+				doc = {"rcpt":num,"msg":msg,"timestamp":datetime.now()}
+				idProcess = self.db.outbox.insert_one(doc).inserted_id
+				ret = ret + 1
+	    kemb = {"Total Nomor Tujuan":ret,"Pesannya":msg}
+	    return kemb
     
     def insertSentitem(self,rcpt,msg,stat):
 	    self.db.sentitems
