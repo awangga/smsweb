@@ -20,7 +20,7 @@ try:
 	form = cgi.FieldStorage()
 	rcpt = form["rcpt"].value
 	msg = form["msg"].value
-	print sw.insertOutbox(rcpt,msg)
+	print sw.insertOutboxPerRcpt(rcpt,msg)
 except:
 	pass
 #run main
