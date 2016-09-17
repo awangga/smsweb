@@ -136,6 +136,29 @@ class SmsWeb(object):
 
     def idProcess(self,idprocess):
 	    self.idprocess = idprocess
+
+    def apisends(self):
+            rcptarr = re.split(',|;',self.recipient)
+            for num in rcptarr:
+                if num:
+                        print '*Sending SMS to: '+num+' \n'
+                        number = self.validateNumber(num)
+                        self.rcpt(number)
+                        try:
+                                self.send()
+                        except ValueError:
+                                self.insertErrornum()
+   
+    def apisend(self):
+        self.pdu = SmsSubmit(self.recipient, self.content)
+        for xpdu in self.pdu.to_pdu():
+                command = 'AT+CMGS=%d\r' % xpdu.length
+                a = self.SendCommand(command,len(str(xpdu.length))+14)
+                command = '%s\x1a' % xpdu.pdu
+                b = self.SendCommand(command,len(xpdu.pdu)+20)
+                data = str(a)+str(b)
+                self.insertSentitem(self.recipient,self.content,data)
+        return data
     
     def sends(self):
 	    rcptarr = re.split(',|;',self.recipient)
