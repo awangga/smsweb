@@ -106,11 +106,8 @@ Made it for your notification and account verification Apps
 
 
 
-## Reference
- 1. https://www.centos.org/docs/5/html/5.1/Deployment_Guide/s2-users-add.html
- 2. http://www.techotopia.com/index.php/Managing_CentOS_6_Users_and_Groups
- 3. http://www.cyberciti.biz/faq/linux-list-all-members-of-a-group/
- 4. http://docs.gunicorn.org/en/19.3/design.html
- 5. http://docs.gunicorn.org/en/19.3/faq.html
+## User Manual
+ 1. Indonesia Manual Book
  
 [Install MongoDB]:http://andres.jaimes.net/870/setup-mongo-on-centos-6/
+[Indonesia Manual Book]:https://awangga.gitbooks.io/sms-web-service-untuk-pemula/content/chapter1.html
