@@ -14,8 +14,9 @@ Made it for your notification and account verification Apps
  1. Centos 6 or later
  2. [Install MongoDB]
  3. Wavecom modem
- 4. Install Apache Webserver with CGI enable or wsgi
+ 4. Install Apache Webserver with CGI enable or wsgi (a2enmod cgi)
  
+
  ```sh
  # yum install httpd
  ``` 
@@ -30,6 +31,31 @@ Made it for your notification and account verification Apps
     Allow from all
  </Directory>
  ```
+ on apache2 edit /etc/apache2/conf-available/serve-cgi-bin.conf
+
+ ```
+ <IfModule mod_alias.c>
+	<IfModule mod_cgi.c>
+		Define ENABLE_USR_LIB_CGI_BIN
+	</IfModule>
+
+	<IfModule mod_cgid.c>
+		Define ENABLE_USR_LIB_CGI_BIN
+	</IfModule>
+
+	<IfDefine ENABLE_USR_LIB_CGI_BIN>
+		ScriptAlias / /var/www/html/
+		<Directory "/var/www/html">
+			AllowOverride None
+			Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+			AddHandler cgi-script py
+			Require all granted
+		</Directory>
+	</IfDefine>
+ </IfModule>
+
+ ```
+
 
 ## Instalation
  1. add user apache and to to group dialout
