@@ -145,7 +145,7 @@ class SmsWeb(object):
                         number = self.validateNumber(num)
                         self.rcpt(number)
                         try:
-                                self.send()
+                                self.apisend()
                         except ValueError:
                                 self.insertErrornum()
    
