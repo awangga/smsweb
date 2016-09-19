@@ -17,8 +17,8 @@ timeout = 30
 
 
 urlapi = "http://urltoapi/"
-rcptparamapi = "&msisdn"
-msgparamapi = "&message"
+rcptparamapi = "&msisdn="
+msgparamapi = "&message="
 
 mongohost = "localhost"
 mongoport = 27017
