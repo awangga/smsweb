@@ -154,6 +154,7 @@ class SmsWeb(object):
 	msg = urllib2.quote(self.content)
 	apistr = config.urlapi+config.rcptparamapi+self.recipient+config.msgparamapi+msg
 	data = urllib2.urlopen(apistr).read()
+	self.insertSentitem(self.recipient,self.content,data)
         return data
     
     def sends(self):
