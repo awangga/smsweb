@@ -15,7 +15,7 @@ Made it for your notification and account verification Apps
  2. [Install MongoDB]
  3. Wavecom modem
  4. Install Apache Webserver with CGI enable or wsgi (a2enmod cgi)
- 
+ 5. Rename config-sample.py to config.py edit with your configuration server
 
  ```sh
  # yum install httpd
