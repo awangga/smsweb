@@ -14,7 +14,11 @@ recipient = '+6289610707901'
 message = "Neng...!!! ieu mamah pake HP batur.. mamah keur aya masalah di kantor polisi.. mamah menta tulung pang nganteurkeun cai sa ember... inget cai sa ember ... lain pulsa...pulsa mah loba keneh...mamah keur milu ngising di kantor polisi... caina saat ... burukeun ulah seuri... mamah can cebok yeuh, inget nya neng.. cai sa ember ..!!! lain pulsa...!!! mamah geus cangkeul nagog"
 port = 8181
 timeout = 30
-webapi = "http://urltoapi/?param="
+
+
+urlapi = "http://urltoapi/"
+rcptparamapi = "&msisdn"
+msgparamapi = "&message"
 
 mongohost = "localhost"
 mongoport = 27017

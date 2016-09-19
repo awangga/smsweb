@@ -152,7 +152,8 @@ class SmsWeb(object):
    
     def apisend(self):
 	msg = urllib2.quote(self.content)
-	data = urllib2.urlopen("https://smsblast.id/api/sendsingle.json?username=smsweb&password=smsweb&sender=PON2016JBR&msisdn="+self.recipient+"&message="+msg).read()
+	apistr = config.urlapi+config.rcptparamapi+self.recipient+config.msgparamapi+msg
+	data = urllib2.urlopen(apistr).read()
         return data
     
     def sends(self):
