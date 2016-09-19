@@ -35,7 +35,7 @@ else:
 pidfile.close()
 if not sw.isRunning(pid):
 	#print "jalankan subproses"
-	pid = subprocess.Popen(["nohup", "python", "main.py"], 
+	pid = subprocess.Popen(["nohup", "python", "mainapi.py"], 
 	                                    stdout=subprocess.PIPE, 
 	                                    stderr=subprocess.STDOUT).pid
 	pidfile = open("main.pid","w")
