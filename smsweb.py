@@ -151,7 +151,8 @@ class SmsWeb(object):
                                 self.insertErrornum()
    
     def apisend(self):
-	data = urllib2.urlopen("https://smsblast.id/api/sendsingle.json?username=smsweb&password=smsweb&sender=PON2016JBR&msisdn="+self.recipient+"&message="+self.content).read()
+	msg = urllib2.quote(self.content)
+	data = urllib2.urlopen("https://smsblast.id/api/sendsingle.json?username=smsweb&password=smsweb&sender=PON2016JBR&msisdn="+self.recipient+"&message="+msg).read()
         return data
     
     def sends(self):
