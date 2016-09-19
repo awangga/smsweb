@@ -7,6 +7,7 @@ import os.path
 import re
 import time
 import pymongo
+import urllib2
 from datetime import datetime
 import serial
 from messaging.sms import SmsSubmit
@@ -150,14 +151,7 @@ class SmsWeb(object):
                                 self.insertErrornum()
    
     def apisend(self):
-        self.pdu = SmsSubmit(self.recipient, self.content)
-        for xpdu in self.pdu.to_pdu():
-                command = 'AT+CMGS=%d\r' % xpdu.length
-                a = self.SendCommand(command,len(str(xpdu.length))+14)
-                command = '%s\x1a' % xpdu.pdu
-                b = self.SendCommand(command,len(xpdu.pdu)+20)
-                data = str(a)+str(b)
-                self.insertSentitem(self.recipient,self.content,data)
+	data = urllib2.urlopen("https://smsblast.id/api/sendsingle.json?username=smsweb&password=smsweb&sender=PON2016JBR&msisdn="+self.recipient+"&message="+self.content).read()
         return data
     
     def sends(self):
