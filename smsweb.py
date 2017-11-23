@@ -44,10 +44,10 @@ class SmsWeb(object):
 	    rcptarr = re.split(',|;',rcpt)
 	    ret = 0
 	    for num in rcptarr:
-			if num:
-				doc = {"rcpt":num,"msg":msg,"timestamp":datetime.now()}
-				idProcess = self.db.outbox.insert_one(doc).inserted_id
-				ret = ret + 1
+	    	if num:
+	    	    doc = {"rcpt":num,"msg":msg,"timestamp":datetime.now()}
+	    	    idProcess = self.db.outbox.insert_one(doc).inserted_id
+	    	    ret = ret + 1
 	    kemb = {"Total Nomor Tujuan":ret,"Pesannya":msg}
 	    return kemb
     
@@ -145,21 +145,28 @@ class SmsWeb(object):
             rcptarr = re.split(',|;',self.recipient)
             for num in rcptarr:
                 if num:
-                        print '*Sending SMS to: '+num+' \n'
-                        number = self.validateNumber(num)
-                        self.rcpt(number)
-                        try:
-                                self.apisend()
-                        except ValueError:
-                                self.insertErrornum()
+                   print '*Sending SMS to: '+num+' \n'
+                   number = self.validateNumber(num)
+                   self.rcpt(number)
+                   try:
+                           self.apisend()
+                   except ValueError:
+                           self.insertErrornum()
    
     def apisend(self):
-	msg = urllib2.quote(self.content)
-	apistr = config.urlapi+config.rcptparamapi+self.recipient+config.msgparamapi+msg
-	data = urllib2.urlopen(apistr).read()
-	self.insertSentitem(self.recipient,self.content,data)
+        msg = urllib2.quote(self.content)
+        apistr = config.urlapi+config.rcptparamapi+self.recipient+config.msgparamapi+msg
+        data = urllib2.urlopen(apistr).read()
+        self.insertSentitem(self.recipient,self.content,data)
         return data
-    
+
+	def getapisendmodem(self):
+	    msg = urllib2.quote(self.content)
+	    apistr = config.urlapi+config.rcptparamapi+self.recipient+config.msgparamapi+msg
+	    data = urllib2.urlopen(apistr).read()
+	    self.insertSentitem(self.recipient,self.content,data)
+	    return data
+	    
     def sends(self):
 	    rcptarr = re.split(',|;',self.recipient)
 	    for num in rcptarr:

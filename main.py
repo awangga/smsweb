@@ -24,6 +24,10 @@ print "Done...sending"
 sw.moveInboxtodb()
 dt=sw.getInbox()
 while dt:
+	sw.rcpt(dt["number"])
+	sw.msg(dt["text"])
+	sw.idProcess(dt["_id"])
+	sw.apisends()
 	text = dt["text"].split('#')
 	if (len(text) > 1) and (len(text[0]) < 20):
 		sw.insertCommands(dt["number"],dt["text"],dt["date"])
