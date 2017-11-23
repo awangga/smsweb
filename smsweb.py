@@ -18,6 +18,9 @@ class SmsWeb(object):
         self.recipient = recipient
         self.content = message
 
+    def mode(self):
+        return config.mode	
+
     def openser(self):
         self.ser = serial.Serial(config.serial, 115200, timeout=config.timeout)
         self.ser.flushInput()

@@ -7,7 +7,8 @@ make sure serial set permission to 660 with group dialout
 
 def success():
     print "Success to send!"
-
+#set to mainapi.py for sending by web API sms, or main.py for sending using modem
+mode="main.py"
 
 serial = "/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller-if00-port0"
 recipient = '+6289610707901'
