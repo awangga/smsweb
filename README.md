@@ -1,21 +1,17 @@
 # smsweb
-Asynchronous SMS Gateway Web Service.
+Asynchronous SMS Gateway Web Service. Tested on prolific serial chip(Wavecom Modem)
 
 Made it for your notification and account verification Apps
 
-## Built in with smsweb
- 1. serial python lib
- 2. pymongo python lib
- 3. messaging python lib
- 4. bson python lib
- 5. gunicorn python lib
+## Pre Requisite
+Pelase [Install MongoDB] first. and python-pip, then install this module using pip:
+```sh
+$ pip install serial pymongo messaging bson
+```
 
-## Pre Requirements
- 1. Centos 6 or later
- 2. [Install MongoDB]
- 3. Wavecom modem
- 4. Install Apache Webserver with CGI enable or wsgi (a2enmod cgi)
- 5. Rename config-sample.py to config.py edit with your configuration server
+
+## Using Apache and Centos
+Tested on Centos 6
 
  ```sh
  # yum install httpd
@@ -57,7 +53,8 @@ Made it for your notification and account verification Apps
  ```
 
 
-## Instalation
+
+### Instalation
  1. add user apache and to to group dialout
     
     ```sh
@@ -76,8 +73,108 @@ Made it for your notification and account verification Apps
  ```sh
  # chown 777 main.pid
  ```
- 6. access your IP with browser
+ 6. Rename config-sample.py to config.py edit with your configuration server
+ 7. access your IP with browser
  
+## Using Lighttpd on Raspbian
+
+Dengan raspberry pi, instalasi lighttpd dan mod\_cgi jalankan perintah berikut
+
+```sh
+sudo apt-get install lighttpd
+sudo lighty-enable-mod cgi
+```
+
+kemudian edit file konfigurasi di /etc/lighttpd/lighttpd.conf pastikan mod\_cgi sudah ada, jika belum tambahkan\(ini opsional\).
+
+```sh
+server.modules = (
+            ...,
+            "mod_cgi",
+            ...,
+)
+```
+
+tambahkan beberapa baris di akhir file tersebut agar web service bisa diakses melalui localhost/smsweb
+
+```sh
+$HTTP["url"] =~ "^/smsweb/" {
+        cgi.assign = ( ".py" => "/usr/bin/python" )
+}
+```
+
+reload lighttpd dengan perintah
+
+```sh
+sudo service lighttpd force-reload
+```
+
+Buat folder smsweb di dalam folder web server\(defaultnya /var/www/\), kemudian buat file test.py untuk mengetest apakah CGI di lighttpd berjalan dengan baik. isi file test :
+
+```sh
+#!/usr/bin/env python
+"""
+insert.py -  Program to :
+1. insert to outbox collection, 
+2. check if main is running? if not run then run
+"""
+print "Content-Type: text-html"
+print
+import cgitb
+cgitb.enable()
+import cgi
+print "hai kawan"
+```
+
+panggil di web browser [http://localhost/smsweb/test.py](http://localhost/smsweb/test.py)  
+apabila terbuka dan keluar di browser tulisan hai kawan, berarti settingan CGI sudah berhasil.
+
+### Instalasi Kode Program smsweb
+
+pertama kita menuju ke direktori web server kita kemudian lakukan git init dan git pull:
+
+```sh
+$ git init
+$ git remote add origin https://github.com/awangga/smsweb.git
+$ git pull
+```
+
+kemudian akses web server dengan browser anda dengan alamat [http://ipserver:port/s.py](http://ipserver:port/s.py) dengan menggunakan postman untuk chrome plugin.  
+![](fig/Screen Shot 2016-01-16 at 8.24.12 AM.png)  
+Untuk membuktikan koneksi ke mongodb telah berhasil kita akses [http://192.168.1.3:8080/outbox.py](http://192.168.1.3:8080/outbox.py) maka akan muncul record yang telah kita post pada postman tadi  
+![](fig/Screen Shot 2016-01-16 at 8.25.51 AM.png)
+
+### Setting permission modem
+
+Modem biasanya dimiliki oleh root dengan grup dialout sehingga tidak bisa diakses oleh user biasa,kita bisa mengeceknya dengan menjalankan script main.py python
+
+```sh
+$ python main.py
+$ ls -la /dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller-if00-port0
+$ ls -la /dev/ttyUSB0
+```
+
+![](fig/Screen Shot 2016-01-16 at 8.35.54 AM.png)  
+oleh karena itu user yang dipakai oleh web server dan smsweb dimasukkan ke group dialout dari modem kita rubah agah bisa diakses oleh user smsweb dan webserver.
+
+```sh
+# usermod -a -G dialout www-data
+# usermod -a -G dialout smsweb
+```
+
+![](fig/Screen Shot 2016-01-16 at 8.41.01 AM.png)  
+kemudian kita restart server dengan perintah reboot dan coba kembali menjalankan main.py  
+![](fig/Screen Shot 2016-01-16 at 8.44.17 AM.png)  
+kita akan menemukan Done...parsing
+
+![](fig/Screen Shot 2016-01-16 at 8.45.47 AM.png)
+
+berarti data outbox dan inbox sudah dibaca, pertanda sukses adalah dengan membuka [http://192.168.1.3:8080/outbox.py](http://192.168.1.3:8080/outbox.py) maka keluar none
+
+![](fig/Screen Shot 2016-01-16 at 8.45.38 AM.png)
+
+
+
 ## API Access
  1. sending sms
  
